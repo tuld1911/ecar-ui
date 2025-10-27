@@ -5,6 +5,8 @@ import {
 import {AuthService} from "../../../services/auth.service";
 import {UserService} from "../../../services/user.service";
 import {NgOptimizedImage} from "@angular/common";
+import {TokenStorageService} from "../../../services/token-storage.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-landing-shell',
@@ -31,7 +33,9 @@ export class LandingShellComponent implements AfterViewInit, OnDestroy, OnInit {
         private r2: Renderer2,
         private zone: NgZone,
         private auth: AuthService,
-        private userSvc: UserService
+        private userSvc: UserService,
+        private tokenStorageService: TokenStorageService,
+        private router: Router,
     ) {}
 
     async ngAfterViewInit() {
@@ -78,6 +82,7 @@ export class LandingShellComponent implements AfterViewInit, OnDestroy, OnInit {
             next: (u) => {
                 this.user.set(u);
                 this.loading.set(false);
+                this.tokenStorageService.saveUser(u)
                 console.log(this.user);
             },
             error: () => {
@@ -90,4 +95,7 @@ export class LandingShellComponent implements AfterViewInit, OnDestroy, OnInit {
 
     login() { this.auth.loginWithGoogle(); }
     logout() { this.auth.logout(); }
+    goToDashboard() {
+        this.router.navigate(['/']).then();
+    }
 }

@@ -67,6 +67,7 @@
                         <div style="display:flex;align-items:center;gap:12px;">
                             <img [ngSrc]="u.picture" width="48" height="48" style="border-radius:50%" alt="avatar" />
                             <div style="flex:1"></div>
+                            <button (click)="goToDashboard()" class="btn btn-light w-100 py-2">Dashboard</button>
                             <button (click)="logout()" class="btn btn-light w-100 py-2">Logout</button>
                         </div>
                     } @else {

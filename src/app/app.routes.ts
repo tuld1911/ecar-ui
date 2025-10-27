@@ -20,11 +20,13 @@ import {SignUpComponent} from './pages/auth-pages/sign-up/sign-up.component';
 import {CalenderComponent} from './pages/calender/calender.component';
 import {LandingShellComponent} from "./features/landing/landing-shell/landing-shell.component";
 import {UserManagementComponent} from "./pages/management/user-management/user-management.component";
+import {AuthGuard} from "./guard/auth.guard";
 
 export const routes: Routes = [
     {
         path: '',
         component: AppLayoutComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',
