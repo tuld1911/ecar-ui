@@ -7,15 +7,11 @@ import {AuthService} from "../../../services/auth.service";
 import {UserService} from "../../../services/user.service";
 import {catchError, EMPTY, finalize, tap} from "rxjs";
 import {User} from "../../../models/user";
-
-interface Transaction {
-    image: string;
-    action: string;
-    date: string;
-    amount: string;
-    category: string;
-    status: "Success" | "Pending" | "Failed";
-}
+import {ModalService} from "../../modal/modal.service";
+import {ConfirmDialogComponent} from "../../dialog/confirm-dialog/confirm-dialog.component";
+import {UserDialogComponent} from "../../dialog/user-dialog/user-dialog.component";
+import {ToastService} from "../../toast/toast.service";
+import {UserDto} from "../../../models/user-dto";
 
 @Component({
   selector: 'app-user-management',
@@ -36,8 +32,11 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     totalPageNum = 0;
     isLoadingResults = true;
     dataSource: User[] = [];
+
     constructor(private auth: AuthService,
-                private userService: UserService) {
+                private userService: UserService,
+                private modal: ModalService,
+                private toast: ToastService,) {
     }
 
     ngOnInit(): void {
@@ -49,6 +48,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     }
 
     onSearchUsers(pageIndex: number) {
+        console.log(this.searchValue);
         this.isLoadingResults = true;
         this.userService.searchUsers(this.searchValue, this.pageSize, pageIndex).pipe(
             finalize(() => { this.isLoadingResults = false; }),
@@ -57,7 +57,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
                 return EMPTY;
             })
         ).subscribe(res => {
-            console.log(res);
             this.dataSource = res.content;
             this.totalItems = res.page.totalElements;
             this.totalPageNum = res.page.totalPages;
@@ -79,19 +78,73 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
         this.currentPage = page;
     }
 
-    handleViewMore(item: Transaction) {
-        // logic here
-        console.log('View More:', item);
-    }
-
-    handleDelete(item: Transaction) {
-        // logic here
-        console.log('Delete:', item);
-    }
-
     getBadgeColor(role: string): 'success' | 'warning' | 'error' {
-        if (role === 'ADMIN') return 'success';
-        if (role === 'Pending') return 'warning';
+        if (role === 'CUSTOMER') return 'success';
         return 'error';
     }
+
+    deleteUser(id: number) {
+        const ref = this.modal.open(ConfirmDialogComponent, {
+            data: { title: 'Xoá người dùng', message: 'Bạn có chắc muốn xoá?' },
+            panelClass: ['modal-panel', 'p-0'], // có thể thêm class tuỳ ý
+            backdropClass: 'modal-backdrop',
+            disableClose: false,
+        });
+
+        ref.afterClosed$.subscribe(confirmed => {
+            if (confirmed) {
+                this.userService.deleteUser(id).subscribe(() => {
+                    this.toast.success('Lưu thành công', {
+                        title: 'Thành công',
+                        duration: 2500,
+                        position: 'top-right'
+                    });
+                    this.onSearchUsers(this.pageIndex);
+                })
+
+            }
+        });
+    }
+
+    onCreateUser() {
+        const ref = this.modal.open(UserDialogComponent, {
+            data: { title: 'Thêm', message: '', isEdit: false },
+            panelClass: ['modal-panel', 'p-0'],
+            backdropClass: 'modal-backdrop',
+            disableClose: false,
+        });
+
+        ref.afterClosed$.subscribe(confirmed => {
+            if (confirmed) {
+                this.toast.success('Lưu thành công', {
+                    title: 'Thành công',
+                    duration: 2500,
+                    position: 'top-right'
+                });
+                this.onSearchUsers(this.pageIndex);
+            }
+        });
+    }
+
+    editUser(user: User) {
+        const ref = this.modal.open(UserDialogComponent, {
+            data: { title: 'Chỉnh sửa', message: '', user: user, isEdit: true},
+            panelClass: ['modal-panel', 'p-0'],
+            backdropClass: 'modal-backdrop',
+            disableClose: false,
+        });
+
+        ref.afterClosed$.subscribe(confirmed => {
+            if (confirmed) {
+                this.toast.success('Lưu thành công', {
+                    title: 'Thành công',
+                    duration: 2500,
+                    position: 'top-right'
+                });
+                this.onSearchUsers(this.pageIndex);
+            }
+        });
+    }
+
+    protected readonly HTMLInputElement = HTMLInputElement;
 }

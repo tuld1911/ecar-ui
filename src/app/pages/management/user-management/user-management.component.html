@@ -8,7 +8,7 @@
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
             <form>
                 <div class="relative">
-                    <button class="absolute -translate-y-1/2 left-4 top-1/2" type="button">
+                    <button class="absolute -translate-y-1/2 left-4 top-1/2" type="button" (click)="onSearchUsers(this.pageIndex)">
                         <svg class="fill-gray-500 dark:fill-gray-400" width="20" height="20" viewBox="0 0 20 20"
                              fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -17,12 +17,17 @@
                         </svg>
                     </button>
                     <input
+                            [value]="searchValue"
+                            (input)="searchValue = $any($event.target).value"
                             type="text"
                             placeholder="Search..."
                             class="dark:bg-dark-900 h-[42px] w-full rounded-lg border border-gray-300 bg-transparent py-2.5 pl-[42px] pr-4 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 xl:w-[300px]"
                     />
                 </div>
             </form>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <app-button size="sm" variant="outline" (btnClick)="onCreateUser()"> Create </app-button>
         </div>
     </div>
 
@@ -31,16 +36,22 @@
             <table class="min-w-full">
                 <thead class="border-gray-100 border-y dark:border-white/[0.05]">
                 <tr>
-                    <th class="py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Email</th>
-                    <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Created
-                        Date
+                    <th class="py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        Email
                     </th>
-                    <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Role
-                    </th>
-                    <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Active
+                    <th class="py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        Tên
                     </th>
                     <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                        <span class="sr-only">Action</span>
+                        Ngày tạo
+                    </th>
+                    <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        Vai trò
+                    </th>
+                    <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        <span class="sr-only">
+                            Chức năng
+                        </span>
                     </th>
                 </tr>
                 </thead>
@@ -49,6 +60,9 @@
                         <tr>
                             <td class="px-4 py-4 text-gray-700 whitespace-nowrap text-theme-sm dark:text-gray-400">
                                 {{ item.email }}
+                            </td>
+                            <td class="px-4 py-4 text-gray-700 whitespace-nowrap text-theme-sm dark:text-gray-400">
+                                {{ item.fullName }}
                             </td>
                             <td class="px-4 py-4 text-gray-700 whitespace-nowrap text-theme-sm dark:text-gray-400">
                                 {{ item.createdAt }}
@@ -60,9 +74,6 @@
                                 >
                                     {{ item.roles[0] }}
                                 </app-badge>
-                            </td>
-                            <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">
-                                {{ item.active }}
                             </td>
                             <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">
                                 <div class="relative inline-block">
@@ -87,12 +98,12 @@
                                             </button>
                                         </div>
                                         <div dropdown-content>
-                                            <button
+                                            <button (click)="editUser(item)"
                                                     class="text-xs flex w-full rounded-lg px-3 py-2 text-left font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
                                             >
-                                                View More
+                                                Chỉnh sửa
                                             </button>
-                                            <button
+                                            <button (click)="deleteUser(item.id)"
                                                     class="text-xs flex w-full rounded-lg px-3 py-2 text-left font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
                                             >
                                                 Delete

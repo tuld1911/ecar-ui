@@ -865,3 +865,17 @@ pre[class*="language-"] {
 pre[class*="language-"].line-numbers {
   padding-left: 2.8em !important;
 }
+
+/* Panel mặc định (bạn có thể thay bằng Tailwind) */
+.modal-panel {
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+}
+
+.cdk-overlay-container {
+    z-index: 2147483647 !important; /* MAX an toàn */
+}

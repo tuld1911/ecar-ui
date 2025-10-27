@@ -21,7 +21,7 @@ export class SelectComponent implements OnInit {
   @Output() valueChange = new EventEmitter<string>();
 
   ngOnInit() {
-    if (!this.value && this.defaultValue) {
+      if (!this.value && this.defaultValue) {
       this.value = this.defaultValue;
     }
   }
