@@ -12,7 +12,7 @@
                     (valueChange)="handleEmailChange($event)"
                     placeholder="Nhập email của bạn"
                     [hint]="error ? 'Email không hợp lệ' : ''"
-                    [disabled]="isEdit"
+                    [readonly]="isEdit"
             ></app-input-field>
         </div>
 
@@ -26,6 +26,19 @@
                     (valueChange)="handleFullNameChange($event)"
                     placeholder="Nhập tên của bạn"
                     [hint]="fullNameError ? 'Tên không thể trống' : ''"
+            ></app-input-field>
+        </div>
+
+        <div>
+            <app-label>Tên</app-label>
+            <app-input-field
+                    id="phoneNo"
+                    type="phoneNo"
+                    [value]="phoneNo"
+                    [error]="fullNameError"
+                    (valueChange)="handleFullNameChange($event)"
+                    placeholder="Nhập số điện thoại của bạn"
+                    [hint]="fullNameError ? 'Số điện thoại không đúng' : ''"
             ></app-input-field>
         </div>
 

@@ -877,5 +877,9 @@ pre[class*="language-"].line-numbers {
 }
 
 .cdk-overlay-container {
-    z-index: 2147483647 !important; /* MAX an toàn */
+    z-index: 9998 !important; /* MAX an toàn */
+}
+
+.flatpickr-calendar {
+    z-index: 9999 !important;
 }

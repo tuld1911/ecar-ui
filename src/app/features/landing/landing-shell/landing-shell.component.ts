@@ -83,7 +83,6 @@ export class LandingShellComponent implements AfterViewInit, OnDestroy, OnInit {
                 this.user.set(u);
                 this.loading.set(false);
                 this.tokenStorageService.saveUser(u)
-                console.log(this.user);
             },
             error: () => {
                 this.user.set(null);

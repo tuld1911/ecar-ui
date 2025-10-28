@@ -21,6 +21,7 @@ import {CalenderComponent} from './pages/calender/calender.component';
 import {LandingShellComponent} from "./features/landing/landing-shell/landing-shell.component";
 import {UserManagementComponent} from "./pages/management/user-management/user-management.component";
 import {AuthGuard} from "./guard/auth.guard";
+import {CustomerDashboardComponent} from "./pages/dashboard/customer-dashboard/customer-dashboard.component";
 
 export const routes: Routes = [
     {
@@ -110,6 +111,11 @@ export const routes: Routes = [
                 path: 'users',
                 component: UserManagementComponent,
                 title: 'Angular Videos Dashboard | TailAdmin - Angular Admin Dashboard Template'
+            },
+            {
+                path: 'customer-dashboard',
+                component: CustomerDashboardComponent,
+                title: 'Customer Dashboard'
             },
         ]
     },

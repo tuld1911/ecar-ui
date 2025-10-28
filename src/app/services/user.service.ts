@@ -13,23 +13,27 @@ export class UserService {
     }
 
     me() {
-        return this.http.get<any>(`${this.api}/api/me`);
+        return this.http.get<any>(`${this.api}/api/me`)
+    }
+
+    getInfo() {
+        return this.http.get<any>(`${this.api}/api/users/info`)
     }
 
     searchUsers(searchValue: string, pageSize: number, pageNumber: number): Observable<any> {
         const userSearch = new UserSearch(searchValue, pageNumber, pageSize);
-        return this.http.post<any>(`${this.api}/api/users/search`, userSearch);
+        return this.http.post<any>(`${this.api}/api/users/search`, userSearch)
     }
 
     deleteUser(id: number): Observable<any> {
-        return this.http.delete<any>(`${this.api}/api/users/${id}`);
+        return this.http.delete<any>(`${this.api}/api/users/${id}`)
     }
 
     createUser(user: UserDto): Observable<any> {
-        return this.http.post<any>(`${this.api}/api/users`, user);
+        return this.http.post<any>(`${this.api}/api/users`, user)
     }
 
     updateUser(user: UserDto): Observable<any> {
-        return this.http.put<any>(`${this.api}/api/users`, user);
+        return this.http.put<any>(`${this.api}/api/users`, user)
     }
 }

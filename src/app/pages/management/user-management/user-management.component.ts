@@ -48,7 +48,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     }
 
     onSearchUsers(pageIndex: number) {
-        console.log(this.searchValue);
         this.isLoadingResults = true;
         this.userService.searchUsers(this.searchValue, this.pageSize, pageIndex).pipe(
             finalize(() => { this.isLoadingResults = false; }),
@@ -145,6 +144,4 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
             }
         });
     }
-
-    protected readonly HTMLInputElement = HTMLInputElement;
 }

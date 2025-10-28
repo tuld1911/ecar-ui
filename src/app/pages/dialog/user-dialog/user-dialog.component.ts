@@ -30,6 +30,7 @@ export class UserDialogComponent implements OnInit {
     ];
     email = '';
     fullName = '';
+    phoneNo = '';
     error = false;
     fullNameError = false;
     selectedValue = '';
@@ -49,7 +50,7 @@ export class UserDialogComponent implements OnInit {
             console.log(this.data.user.roles[0]);
             this.email = this.data.user.email
             this.fullName = this.data.user.fullName
-            this.fullName = this.data.user.fullName
+            this.phoneNo = this.data.user.phoneNo
             this.selectedValue = this.data.user.roles[0]
         } else {
             this.selectedValue = 'CUSTOMER';
@@ -57,7 +58,7 @@ export class UserDialogComponent implements OnInit {
     }
 
     ok() {
-        const userDto: UserDto = new UserDto(this.email, this.fullName, this.selectedValue)
+        const userDto: UserDto = new UserDto(this.email, this.fullName, this.selectedValue, this.phoneNo)
         console.log(userDto);
         if (this.data?.isEdit && this.data?.user) {
             this.userService.updateUser(userDto).pipe(
