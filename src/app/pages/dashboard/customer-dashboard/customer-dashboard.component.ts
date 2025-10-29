@@ -9,6 +9,7 @@ import {MaintenanceService} from "../../../services/maintenance.service";
 import {ButtonComponent} from "../../../shared/components/ui/button/button.component";
 import {ModalService} from "../../modal/modal.service";
 import {MaintenanceDialogComponent} from "../../dialog/maintenance-dialog/maintenance-dialog.component";
+import {CreateCarDialogComponent} from "../../dialog/create-car-dialog/create-car-dialog.component";
 
 @Component({
   selector: 'app-customer-dashboard',
@@ -97,6 +98,21 @@ export class CustomerDashboardComponent implements AfterViewInit {
         ref.afterClosed$.subscribe(confirmed => {
             if (confirmed) {
                 this.getHistoryData(this.pageIndex);
+            }
+        });
+    }
+
+    addVehicle() {
+        const ref = this.modal.open(CreateCarDialogComponent, {
+            data: { title: 'Thêm xe', message: '' },
+            panelClass: ['modal-panel', 'p-0'],
+            backdropClass: 'modal-backdrop',
+            disableClose: false,
+        });
+
+        ref.afterClosed$.subscribe(confirmed => {
+            if (confirmed) {
+                this.getVehicleData();
             }
         });
     }

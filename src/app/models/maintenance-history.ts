@@ -1,5 +1,3 @@
-import {CarModel} from "./car-model";
-
 export class MaintenanceHistory {
     carName: string = '';
     carType: string = '';

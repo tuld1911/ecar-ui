@@ -22,6 +22,10 @@ import {LandingShellComponent} from "./features/landing/landing-shell/landing-sh
 import {UserManagementComponent} from "./pages/management/user-management/user-management.component";
 import {AuthGuard} from "./guard/auth.guard";
 import {CustomerDashboardComponent} from "./pages/dashboard/customer-dashboard/customer-dashboard.component";
+import {
+    CustomerPaymentDashboardComponent
+} from "./pages/dashboard/customer-payment-dashboard/customer-payment-dashboard.component";
+import {PaypalSuccessComponent} from "./pages/paypal-success/paypal-success.component";
 
 export const routes: Routes = [
     {
@@ -116,6 +120,16 @@ export const routes: Routes = [
                 path: 'customer-dashboard',
                 component: CustomerDashboardComponent,
                 title: 'Customer Dashboard'
+            },
+            {
+                path: 'customer-payment-dashboard',
+                component: CustomerPaymentDashboardComponent,
+                title: 'Customer Payment Dashboard'
+            },
+            {
+                path: 'paypal/success',
+                component: PaypalSuccessComponent,
+                title: 'Angular NotFound Dashboard | TailAdmin - Angular Admin Dashboard Template'
             },
         ]
     },
