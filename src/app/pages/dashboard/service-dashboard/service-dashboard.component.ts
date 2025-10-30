@@ -170,6 +170,7 @@ export class ServiceDashboardComponent implements OnInit {
 
         ref.afterClosed$.subscribe(confirmed => {
             if (confirmed) {
+                this.initTicket();
             }
         });
     }

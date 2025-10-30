@@ -66,7 +66,7 @@ export class ServiceDetailDialogComponent implements OnInit {
         this.numOfKm = this.data?.numOfKm ?? 0;
         this.carModelId = this.data?.carModelId ?? 0;
         this.ticketId = this.data?.ticketId ?? 0;
-        this.selectedTechnician = this.data?.technicianId.toString() ?? '1'
+        this.selectedTechnician = this.data?.technicianId ? this.data?.technicianId.toString() : '1'
         this.initMaintenanceServiceGroup(this.selectedMilestone);
         this.initMilestoneData();
         this.initServiceGroup();
