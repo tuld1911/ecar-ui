@@ -36,4 +36,8 @@ export class UserService {
     updateUser(user: UserDto): Observable<any> {
         return this.http.put<any>(`${this.api}/api/users`, user)
     }
+
+    getUsersByRole(role: string): Observable<any> {
+        return this.http.get<any>(`${this.api}/api/users/get-by-role/${role}`)
+    }
 }

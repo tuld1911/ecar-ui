@@ -26,6 +26,7 @@ import {
     CustomerPaymentDashboardComponent
 } from "./pages/dashboard/customer-payment-dashboard/customer-payment-dashboard.component";
 import {PaypalSuccessComponent} from "./pages/paypal-success/paypal-success.component";
+import {ServiceDashboardComponent} from "./pages/dashboard/service-dashboard/service-dashboard.component";
 
 export const routes: Routes = [
     {
@@ -125,6 +126,11 @@ export const routes: Routes = [
                 path: 'customer-payment-dashboard',
                 component: CustomerPaymentDashboardComponent,
                 title: 'Customer Payment Dashboard'
+            },
+            {
+                path: 'service-dashboard',
+                component: ServiceDashboardComponent,
+                title: 'Service Dashboard'
             },
             {
                 path: 'paypal/success',

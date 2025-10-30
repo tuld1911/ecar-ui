@@ -35,6 +35,7 @@ export class AppSidebarComponent {
                 {name: "Quản lý người dùng", path: "/users"},
                 {name: "Quản lý xe & lịch sử bảo dưỡng", path: "/customer-dashboard"},
                 {name: "Quản lý gói dịch vụ", path: "/customer-payment-dashboard"},
+                {name: "Quản lý dịch vụ", path: "/service-dashboard"},
             ],
         },
         {
