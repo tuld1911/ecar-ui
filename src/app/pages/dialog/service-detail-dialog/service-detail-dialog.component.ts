@@ -1,4 +1,4 @@
-import {Component, HostListener, inject, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, HostListener, inject, OnInit} from '@angular/core';
 import {SelectComponent} from "../../../shared/components/form/select/select.component";
 import {ButtonComponent} from "../../../shared/components/ui/button/button.component";
 import {MODAL_DATA} from "../../modal/modal.token";
@@ -14,15 +14,15 @@ import {ServiceCreateRequest} from "../../../models/service-create-request";
 type CheckboxItem = { key: string; label: string; checked: boolean };
 type Group = { id: string; title: string; open: boolean; items: CheckboxItem[] };
 @Component({
-  selector: 'app-service-detail-dialog',
+    selector: 'app-service-detail-dialog',
     imports: [
         SelectComponent,
         ButtonComponent
     ],
-  templateUrl: './service-detail-dialog.component.html',
-  styleUrl: './service-detail-dialog.component.css'
+    templateUrl: './service-detail-dialog.component.html',
+    styleUrl: './service-detail-dialog.component.css'
 })
-export class ServiceDetailDialogComponent implements OnInit {
+export class ServiceDetailDialogComponent implements OnInit, AfterViewInit {
 
     numOfKm: number = 0;
     carModelId: number = 0;
@@ -48,7 +48,7 @@ export class ServiceDetailDialogComponent implements OnInit {
 
     private data = inject(MODAL_DATA, { optional: true }) as { title?: string;
         message?: string, carModelId: number,
-        numOfKm: number, ticketId: number, technicianId: number } | null;
+        numOfKm: number, ticketId: number, technicianId: number, milestoneId: number } | null;
     private modalRef = inject<ModalRef<boolean>>(ModalRef);
 
 
@@ -59,15 +59,19 @@ export class ServiceDetailDialogComponent implements OnInit {
     selectedTechnician: string = ''
 
     constructor(private maintenanceService: MaintenanceService,
-                private userService: UserService,) {
+                private userService: UserService,
+                private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
+
+    }
+
+    ngAfterViewInit() {
         this.numOfKm = this.data?.numOfKm ?? 0;
         this.carModelId = this.data?.carModelId ?? 0;
         this.ticketId = this.data?.ticketId ?? 0;
         this.selectedTechnician = this.data?.technicianId ? this.data?.technicianId.toString() : '1'
-        this.initMaintenanceServiceGroup(this.selectedMilestone);
         this.initMilestoneData();
         this.initServiceGroup();
         this.initTechnician();
@@ -123,6 +127,9 @@ export class ServiceDetailDialogComponent implements OnInit {
     initMilestoneData() {
         this.maintenanceService.getMilestone(this.carModelId).pipe().subscribe(res => {
             this.milestoneOptions = this.toOptions(res, 'id', 'kilometerAt', 'yearAt');
+            this.selectedMilestone = this.data?.milestoneId ? this.data?.milestoneId.toString() : this.milestoneOptions[0].value
+            this.initMaintenanceServiceGroup(this.selectedMilestone);
+            this.cdr.markForCheck();
         })
     }
 
@@ -142,6 +149,7 @@ export class ServiceDetailDialogComponent implements OnInit {
 
     handleMilestoneChange(value: string) {
         this.initMaintenanceServiceGroup(value);
+        this.selectedMilestone = value;
     }
 
     initMaintenanceServiceGroup(value: string) {

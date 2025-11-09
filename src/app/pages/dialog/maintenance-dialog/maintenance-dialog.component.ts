@@ -28,7 +28,7 @@ import {ScheduleRequest} from "../../../models/schedule-request";
 import {MaintenanceService} from "../../../services/maintenance.service";
 
 @Component({
-  selector: 'app-maintenance-dialog',
+    selector: 'app-maintenance-dialog',
     imports: [
         ButtonComponent,
         InputFieldComponent,
@@ -37,8 +37,8 @@ import {MaintenanceService} from "../../../services/maintenance.service";
         CheckboxComponent,
         TextAreaComponent
     ],
-  templateUrl: './maintenance-dialog.component.html',
-  styleUrl: './maintenance-dialog.component.css'
+    templateUrl: './maintenance-dialog.component.html',
+    styleUrl: './maintenance-dialog.component.css'
 })
 export class MaintenanceDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -196,6 +196,7 @@ export class MaintenanceDialogComponent implements OnInit, AfterViewInit, OnDest
 
     handleCenterChange(value: string) {
         this.selectedCenter = value;
+        console.log(this.selectedCenter);
     }
 
     ok(){
@@ -238,3 +239,4 @@ export class MaintenanceDialogComponent implements OnInit, AfterViewInit, OnDest
     }
 
 }
+
