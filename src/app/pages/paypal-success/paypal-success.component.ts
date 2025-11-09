@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {SubscriptionService} from "../../services/subscription.service";
 import {PaymentExecuteRequest} from "../../models/payment-execute-request";
 
 @Component({
-  selector: 'app-paypal-success',
-  imports: [],
-  templateUrl: './paypal-success.component.html',
-  styleUrl: './paypal-success.component.css'
+    selector: 'app-paypal-success',
+    imports: [],
+    templateUrl: './paypal-success.component.html',
+    styleUrl: './paypal-success.component.css'
 })
-export class PaypalSuccessComponent {
+export class PaypalSuccessComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -34,3 +34,5 @@ export class PaypalSuccessComponent {
             )
     }
 }
+
+

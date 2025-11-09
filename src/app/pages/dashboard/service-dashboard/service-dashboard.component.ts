@@ -1,3 +1,4 @@
+
 import {Component, HostListener, OnInit} from '@angular/core';
 import {MaintenanceService} from "../../../services/maintenance.service";
 import {MaintenanceTicket} from "../../../models/maintenance-ticket";
@@ -21,13 +22,13 @@ interface OptionItem {
 }
 
 @Component({
-  selector: 'app-service-dashboard',
+    selector: 'app-service-dashboard',
     imports: [
         DatePipe
 
     ],
-  templateUrl: './service-dashboard.component.html',
-  styleUrl: './service-dashboard.component.css'
+    templateUrl: './service-dashboard.component.html',
+    styleUrl: './service-dashboard.component.css'
 })
 export class ServiceDashboardComponent implements OnInit {
 
@@ -160,9 +161,9 @@ export class ServiceDashboardComponent implements OnInit {
         return undefined;
     }
 
-    onDetail(ticketId:number, carModelId: number, numOfKm: number, technicianId: number,) {
+    onDetail(ticketId:number, carModelId: number, numOfKm: number, technicianId: number, milestoneId: number) {
         const ref = this.modal.open(ServiceDetailDialogComponent, {
-            data: { title: 'Đặt lịch', message: '', carModelId:  carModelId, numOfKm: numOfKm, ticketId: ticketId, technicianId: technicianId },
+            data: { title: 'Đặt lịch', message: '', carModelId:  carModelId, numOfKm: numOfKm, ticketId: ticketId, technicianId: technicianId, milestoneId: milestoneId },
             panelClass: ['modal-panel', 'p-0'],
             backdropClass: 'modal-backdrop',
             disableClose: false,
@@ -176,3 +177,4 @@ export class ServiceDashboardComponent implements OnInit {
     }
 
 }
+
